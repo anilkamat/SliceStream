@@ -28,6 +28,8 @@ Here are some notable papers in the field of segmentation-based tracking methods
 
 5. [Track Anything: Segment Anything Meets Videos](https://arxiv.org/pdf/2304.11968.pdf) - Offers a versatile approach to segmenting and tracking objects in videos. [GitHub Repository](https://github.com/gaomingqi/Track-Anything) available.
 
+![Alt Text](/Segmentation_based_tracking.png)
+
 
 ## Segmentation-Based Tracking Methods
 This section explores different categories of segmentation-based tracking methods:
