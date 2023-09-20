@@ -28,7 +28,6 @@ Here are some notable papers in the field of segmentation-based tracking methods
 
 5. [Track Anything: Segment Anything Meets Videos](https://arxiv.org/pdf/2304.11968.pdf) - Offers a versatile approach to segmenting and tracking objects in videos. [GitHub Repository](https://github.com/gaomingqi/Track-Anything) available.
 
-**Green highlighted papers are considered important in the field of segmentation-based tracking methods.**
 
 ## Segmentation-Based Tracking Methods
 This section explores different categories of segmentation-based tracking methods:
@@ -37,13 +36,13 @@ This section explores different categories of segmentation-based tracking method
 Bottom-up methods focus on contour matching and propagation.
 
 #### Contour Matching
-- [Insert information about contour matching methods here.]
+- [Write about contour matchin]
 
 #### Contour Propagation
-- [Insert information about contour propagation methods here.]
+- [Anil will Write about contour matchin]
 
 ### Joint-Based Methods
-[Insert information about joint-based segmentation and tracking methods here.]
+[Vincent Write about contour matchin]
 
 ## Notes
 - It's important to note that graph-cut segmentation can be relatively slow, and binary segmentation may increase the risk of drift due to wrongly segmented image regions.
