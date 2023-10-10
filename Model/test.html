@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Members</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <main className="main">
+        <div class="websiteName">
+          Slice Stream
+        </div>
+  
+        <div class="videoPlayer">
+          <video id="userVideo" controls width="700" height="400">
+            <source id="userVideoSource" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        
+        <div class="buttonContainer">
+          <div class="button">
+            <label for="videoInput" class="span">
+                Upload Video
+                <input type="file" accept="video/*" id="videoInput" style="display:none;">
+            </label>
+          </div>
+
+          <div id="penguinVideo" class="button" onclick="setVideo()">
+            <div class="span">
+              Use Penguin
+            </div>
+          </div>
+
+          <div class="button">
+            <div class="span">
+              Select Something
+            </div>
+          </div>
+        </div>
+        <script src="./testJavaScript.js"></script>
+      </main>
+</body>
+</html>
