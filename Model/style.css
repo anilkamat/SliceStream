@@ -129,3 +129,11 @@ body {
 .span:hover:after {
     width: 100%;
 } 
+
+
+
+canvas {
+    width: 700px; 
+    height: 400px;
+    overflow: "auto";
+}
