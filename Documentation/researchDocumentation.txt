@@ -1,0 +1,36 @@
+These are all the papers we found pertaining to tracking objects in the screen. 
+Stragies used:
+1. Get a general large picture of the object to be tracked
+2. Distinguish the object from other objects and make them into masks
+3. Cut up the large picture into many smaller areas to be tracked
+4. Give the smaller areas a heirchey to keep good data and throw out bad data
+5. Pick out key segments from the video to help keep overall tracking from going astray
+
+https://arxiv.org/pdf/1905.00737.pdf
+https://cdn.techscience.cn/ueditor/files/cmc/TSP_CMC-73-3/TSP_CMC_28632/TSP_CMC_28632.pdf
+https://www.cs.utexas.edu/~grauman/papers/iccv2011_keysegments.pdf
+https://arxiv.org/pdf/1904.09172.pdf
+https://davischallenge.org/
+
+
+
+After researching deep learning and object tracking we need to research the different expirements they used,
+this will tell us what systems worked and what failed so that we ourselves don't need to go through the trial
+and error process. 
+
+Data Sets found online:
+https://www.tensorflow.org/datasets/catalog/davis
+https://github.com/ux-decoder/segment-everything-everywhere-all-at-once
+https://paperswithcode.com/paper/segment-everything-everywhere-all-at-once
+https://arxiv.org/pdf/2304.06718v4.pdf
+https://arxiv.org/pdf/2304.11968.pdf
+
+We ran this simulation where someone did something similar to what we want to do.
+This gave us a general idea of what features needed to be there in the front end and
+what a final project should look similar to.
+https://github.com/facebookresearch/segment-anything/blob/main/demo/README.md
+
+
+This paper has an interesting way to implement masks and the heirchey for tracking 
+said masks. 
+https://arxiv.org/pdf/2212.02773.pdf
