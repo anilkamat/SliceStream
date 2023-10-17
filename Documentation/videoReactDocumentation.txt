@@ -1,0 +1,19 @@
+The first thing I tried is just html and css on it's own.
+To confirm that there was not html and css problems I made a model of the video code in another file.
+The html website worked perfectly thus confirming that the problem was in react.
+
+https://video-react.js.org/
+This website had it run from the css source, but this didn't work
+
+https://stackoverflow.com/questions/51830864/how-to-play-video-in-react-js-using-html-video-tag
+This guide had the video imported into the react frame work, but ultimately this gave an error with importing react
+
+https://blog.logrocket.com/guide-video-playback-react/
+This website had a ton of different libraries that avoided using the video tag. After trying each one I realized
+that the problem was with the fact that my video was local and not online, so I searched specifically for local 
+react video tag.
+
+https://www.upbeatcode.com/react/how-to-play-video-in-react/
+This guide does not give an errors, but it also does not properly run the video. 
+
+The problem was the placement of the input div. It could not be in the same div as the actual video player.

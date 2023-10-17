@@ -19,9 +19,9 @@
 }
 
 .videoPlayer {
-  padding-left: 10%;
+  padding: 2%;
   width: 40%;
-  height: 400px;
+  height: 475px;
   background-color: red;
   float: left;
 }
@@ -29,7 +29,7 @@
 .buttonContainer {
   padding: 10%;
   width: 60%;
-  height: 400px;
+  height: 475px;
   background-color: #73AB84;
   float: left;
 }
