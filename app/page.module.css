@@ -6,7 +6,10 @@
   background-color: #73AB84;
 }
 
-
+.canvas {
+  width: 700px;
+  height: 400px;
+}
 .websiteName {
   margin: 0;
   padding: 0;
@@ -22,7 +25,7 @@
   padding: 2%;
   width: 40%;
   height: 475px;
-  background-color: red;
+  background-color: #73AB84;
   float: left;
 }
 
