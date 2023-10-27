@@ -117,7 +117,7 @@ export default function Home() {
         <div className={styles.button}>
           <div className={styles.span}>Select Video</div>
         </div>
-        <input type="file" accept="video/mp4" onChange={handleChange} />
+        {/* <input type="file" accept="video/mp4" onChange={handleChange} /> */}
         <input type="file" accept="image/png, image/jpeg" onChange={handleImageChange} />
         <div className={styles.button}>
 

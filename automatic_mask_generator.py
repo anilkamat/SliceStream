@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import cv2
 import tkinter
+import time
 
 def show_anns(anns):
     if len(anns) == 0:
@@ -21,6 +22,7 @@ def show_anns(anns):
 
 checkpoint_path = "./models/sam_vit_h_4b8939.pth"
 image_path = "./images/car.jpg"
+image_path = "./images/image3.png"
 model_type = "vit_h"
 
 image = cv2.imread(image_path)
@@ -29,10 +31,13 @@ sam = sam_model_registry[model_type](checkpoint=checkpoint_path)
 mask_generator = SamAutomaticMaskGenerator(sam)
 
 print("Generating masks...")
+start = time.time()
 masks = mask_generator.generate(image)
+end = time.time()
 print("Masks generated!")
+print("Time Taken: {:.10f} seconds".format(end - start))
 
-print(masks)
+# print(masks)
 
 print("Displaying image with masks...")
 plt.figure(figsize=(20,20))
