@@ -7,6 +7,8 @@
 }
 
 .canvas {
+  padding: 0;
+  margin: 0;
   width: 700px;
   height: 400px;
 }
@@ -22,17 +24,17 @@
 }
 
 .videoPlayer {
-  padding: 2%;
-  width: 40%;
-  height: 475px;
+  padding: 3%;
+  width: 60%;
+  height: 500px;
   background-color: #73AB84;
   float: left;
 }
 
 .buttonContainer {
-  padding: 10%;
-  width: 60%;
-  height: 475px;
+  padding: 3%;
+  width: 40%;
+  height: 500px;
   background-color: #73AB84;
   float: left;
 }
