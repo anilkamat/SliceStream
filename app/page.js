@@ -114,15 +114,23 @@ export default function Home() {
       </div>
 
       <div className={styles.buttonContainer}>
-        <div className={styles.button} onClick={addUserVideo}>
-          <div className={styles.span}>
-              Select Video
-            </div>
+        <div className={styles.button}>
+          <label for="video-input">
+            <div className={styles.span}>
+                Upload Video
+            </div>  
+          </label>
+          <input id="video-input" type="file" accept="video/mp4" onChange={addUserVideo} />
         </div>
 
-        <input type="file" accept="video/mp4" onChange={addUserVideo} />
-        <input type="file" accept="image/png, image/jpeg" onChange={handleImageChange} />
-
+        <div className={styles.button}>
+          <label for="picture-input">
+            <div className={styles.span}>
+                Upload Picture
+            </div>  
+          </label>
+          <input id="picture-input" type="file" accept="image/png, image/jpeg" onChange={handleImageChange} /> 
+        </div>
 
         <div className={styles.button} onClick={capture}>
           <div className={styles.span}>
