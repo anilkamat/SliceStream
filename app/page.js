@@ -56,11 +56,12 @@ export default function Home() {
   const penguinVideo = () => {
     try {
       const videoUrl = "https://www.pexels.com/video/penguins-at-the-zoo-1528489/";
+      // const video = videoRef.current;
       const video = document.getElementById("userVideo");
       const source = document.getElementById("sourceVideo");
 
       // Set the source element's src attribute to the online URL
-      source.setAttribute("src", videoUrl);
+      video.setAttribute("src", videoUrl);
 
       // Load the video to play it
       video.load();
@@ -143,7 +144,6 @@ export default function Home() {
           <div className={styles.button} onClick={penguinVideo}>
             <div className={styles.span}>
               Use Penguin
-              
             </div>
           </div>
 
@@ -162,6 +162,11 @@ export default function Home() {
 
       <div className={styles.videoPlayer}>
         <canvas id="canvas" className={styles.canvas}></canvas>
+        <div className={styles.button}>
+            <div className={styles.span}>
+              Select Masks
+            </div>
+          </div>
       </div>
     </main>
   );

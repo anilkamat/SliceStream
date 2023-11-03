@@ -19,7 +19,7 @@ document.getElementById('videoInput').addEventListener('change', handleVideoUplo
 
 // sets it to the penguinExample video
 function setVideo() {
-    document.getElementById("userVideo").src="./penguinExample.mp4";
+    document.getElementById("userVideoSource").src="https://www.youtube.com/watch?app=desktop&v=UREUvuS2MsA";
 }
 
 
