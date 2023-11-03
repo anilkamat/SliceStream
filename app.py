@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import cv2
 import tkinter
 import torch
-
+import time
 
 
 import sys
@@ -73,19 +73,27 @@ def handle_form():
     print(request)
     file = request.files['file']
     print("Posted file: {}".format(file))
+    print("Type:", type(file))
+    # print("Keys:")
+    # print(file
 
     # image = cv2.imread(file)
     
     # convert string of image data to uint8
-    nparr = np.fromstring(request.data, np.uint8)
+    nparr = np.frombuffer(file.read(), np.uint8)
+    print(nparr)
     # decode image
     image = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
 
     output = {}
     new_file = "a"
 
+    print("Generating masks...")
+    start = time.time()
     masks = mask_generator.generate(image)
+    end = time.time()
     print("Masks generated!")
+    print("Time Taken: {:.10f} seconds".format(end - start))
 
     print(masks)
 

@@ -5,7 +5,7 @@ import styles from './page.module.css';
 
 
 export default function Home() {
-  const [src, setSrc] = useState(""); 
+  const [src, setSrc] = useState("");
   const [imageSrc, setImageSrc] = useState("");
 
   const videoRef = useRef(null);
@@ -132,29 +132,32 @@ export default function Home() {
           <input id="picture-input" type="file" accept="image/png, image/jpeg" onChange={handleImageChange} /> 
         </div>
 
-        <div className={styles.button} onClick={capture}>
-          <div className={styles.span}>
+
+
+          <div className={styles.button} onClick={capture}>
+            <div className={styles.span}>
               Capture Video
             </div>
-        </div>
-
-        <div className={styles.button} onClick={penguinVideo}>
-          <div className={styles.span}>
-            Use Penguin
           </div>
-        </div>
 
-        <div className={styles.sliderContainer}>
-          <input className={styles.sliderContainer}
-            type="range"
-            id="frameSlider"
-            min="0"
-            max="100"
-            step="0.5"
-            defaultValue="0"
-            onChange={updateVideoFrame}
-          />
-        </div>
+          <div className={styles.button} onClick={penguinVideo}>
+            <div className={styles.span}>
+              Use Penguin
+              
+            </div>
+          </div>
+
+          <div className={styles.sliderContainer}>
+            <input className={styles.sliderContainer}
+              type="range"
+              id="frameSlider"
+              min="0"
+              max="100"
+              step="0.5"
+              defaultValue="0"
+              onChange={updateVideoFrame}
+            />
+          </div>
       </div>
 
       <div className={styles.videoPlayer}>

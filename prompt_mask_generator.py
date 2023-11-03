@@ -3,6 +3,7 @@ import torch
 import matplotlib.pyplot as plt
 import cv2
 import sys
+import time
 sys.path.append("..")
 from segment_anything import sam_model_registry, SamPredictor
 
@@ -45,11 +46,17 @@ predictor.set_image(image)
 input_point = np.array([[100, 100]])
 input_label = np.array([1])
 
+print("Generating masks...")
+start = time.time()
 masks, scores, logits = predictor.predict(
     point_coords=input_point,
     point_labels=input_label,
     multimask_output=True,
 )
+end = time.time()
+print("Masks generated!")
+print("Time Taken: {:.10f} seconds".format(end - start))
+
 
 for i, (mask, score) in enumerate(zip(masks, scores)):
     plt.figure(figsize=(10,10))
