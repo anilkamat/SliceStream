@@ -56,11 +56,12 @@ export default function Home() {
   const penguinVideo = () => {
     try {
       const videoUrl = "https://www.pexels.com/video/penguins-at-the-zoo-1528489/";
+      // const video = videoRef.current;
       const video = document.getElementById("userVideo");
       const source = document.getElementById("sourceVideo");
 
       // Set the source element's src attribute to the online URL
-      source.setAttribute("src", videoUrl);
+      video.setAttribute("src", videoUrl);
 
       // Load the video to play it
       video.load();
@@ -115,63 +116,57 @@ export default function Home() {
 
       <div className={styles.buttonContainer}>
         <div className={styles.button}>
-          <div className={styles.span}>Select Video</div>
+          <label for="video-input">
+            <div className={styles.span}>
+                Upload Video
+            </div>  
+          </label>
+          <input id="video-input" type="file" accept="video/mp4" onChange={addUserVideo} />
         </div>
-        {/* <input type="file" accept="video/mp4" onChange={handleChange} /> */}
-        <input type="file" accept="image/png, image/jpeg" onChange={handleImageChange} />
+
         <div className={styles.button}>
+          <label for="picture-input">
+            <div className={styles.span}>
+                Upload Picture
+            </div>  
+          </label>
+          <input id="picture-input" type="file" accept="image/png, image/jpeg" onChange={handleImageChange} /> 
+        </div>
 
-
-          <input type="file" accept="video/mp4" onChange={addUserVideo} />
 
 
           <div className={styles.button} onClick={capture}>
-            <div className={styles.span}>Capture Video</div>
+            <div className={styles.span}>
+              Capture Video
+            </div>
           </div>
 
           <div className={styles.button} onClick={penguinVideo}>
             <div className={styles.span}>
               Use Penguin
-              <div className={styles.button} onClick={addUserVideo}>
-                <div className={styles.span}>
-                  Select Video
-                </div>
-              </div>
-            </div>
-
-            <input type="file" accept="video/mp4" onChange={addUserVideo} />
-            <input type="file" accept="image/png, image/jpeg" onChange={handleImageChange} />
-
-
-            <div className={styles.button} onClick={capture}>
-              <div className={styles.span}>
-                Capture Video
-              </div>
-            </div>
-
-            <div className={styles.button} onClick={penguinVideo}>
-              <div className={styles.span}>
-                Use Penguin
-              </div>
-            </div>
-
-            <div className={styles.sliderContainer}>
-              <input className={styles.sliderContainer}
-                type="range"
-                id="frameSlider"
-                min="0"
-                max="100"
-                step="0.5"
-                defaultValue="0"
-                onChange={updateVideoFrame}
-              />
             </div>
           </div>
-        </div>
+
+          <div className={styles.sliderContainer}>
+            <input className={styles.sliderContainer}
+              type="range"
+              id="frameSlider"
+              min="0"
+              max="100"
+              step="0.5"
+              defaultValue="0"
+              onChange={updateVideoFrame}
+            />
+          </div>
       </div>
 
       <div className={styles.videoPlayer}>
         <canvas id="canvas" className={styles.canvas}></canvas>
+        <div className={styles.button}>
+            <div className={styles.span}>
+              Select Masks
+            </div>
+          </div>
       </div>
     </main>
   );
