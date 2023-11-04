@@ -30,7 +30,7 @@ def show_box(box, ax):
     w, h = box[2] - box[0], box[3] - box[1]
     ax.add_patch(plt.Rectangle((x0, y0), w, h, edgecolor='green', facecolor=(0,0,0,0), lw=2))
 
-def show_anns(anns):
+def apply_anns(anns):
     if len(anns) == 0:
         return
     sorted_anns = sorted(anns, key=(lambda x: x['area']), reverse=True)
@@ -44,6 +44,14 @@ def show_anns(anns):
         color_mask = np.concatenate([np.random.random(3), [0.35]])
         img[m] = color_mask
     ax.imshow(img)
+    return (ax, img)
+
+def show_anns(anns):
+    if len(anns) == 0:
+        return
+    ax, img = apply_anns(anns)
+    ax.imshow(img)
+    
 
 
 
@@ -65,8 +73,39 @@ from flask import Flask, request, render_template
 from flask_cors import CORS
 import requests
 
+from flask_socketio import SocketIO, emit
+
+# create your SocketIO instance
+socketio = SocketIO()
+
+if os.environ.get("FLASK_ENV") == "production":
+    origins = [
+        # "http://actual-app-url.herokuapp.com",
+        # "https://actual-app-url.herokuapp.com"
+    ]
+else:
+    origins = "*"
+
+# create your SocketIO instance
+socketio = SocketIO(cors_allowed_origins=origins)
+
+# handle chat messages
+@socketio.on("chat")
+def handle_chat(data):
+    emit("chat", data, broadcast=True)
+
+
 app = Flask(__name__)
 CORS(app)
+
+# import your socketio object (with the other imports at the
+# top of the file)
+# in this example, the file from the previous step is named socket.py
+
+
+# initialize the app with the socket instance
+# you could include this line right after Migrate(app, db)
+socketio.init_app(app)
 
 @app.route('/upload', methods=['POST'])
 def handle_form():
@@ -95,15 +134,23 @@ def handle_form():
     print("Masks generated!")
     print("Time Taken: {:.10f} seconds".format(end - start))
 
-    print(masks)
+    # print(masks)
 
     print("Displaying image with masks...")
     plt.figure(figsize=(20,20))
     plt.imshow(image)
-    show_anns(masks)
+    ax, img = apply_anns(masks)
     plt.axis('off')
     plt.show() 
     print("Image with masks displayed!")
+    # plt.imsave("test_app_export.png", image)
+    # ax.imsave("test_app_export2.png", img)
+    plt.add_axes(ax)
+
+    # ax.imshow(your_image, aspect='auto')
+    plt.imsave("test_app_export2.png", img)
+
+    
 
     return output
 
@@ -111,8 +158,10 @@ def handle_form():
 def index():
     return render_template("index.html");   
 
+# at the bottom of the file, use this to run the app
 if __name__ == "__main__":
     app.run(host='localhost', port=8000, debug=True)
+    socketio.run(app)
 
 # image_path = "./images/car.jpg"
 
