@@ -1,11 +1,13 @@
 "use client";
 import { useState, useRef } from "react";
 import styles from './page.module.css';
+import MyVideoComponent from './video.js';
+// import penguinVideo from './Video.penguinExample.mp4';
 
 
 
 export default function Home() {
-  const [src, setSrc] = useState("");
+  const [src, setSrc] = useState(""); 
   const [imageSrc, setImageSrc] = useState("");
 
   const videoRef = useRef(null);
@@ -56,12 +58,11 @@ export default function Home() {
   const penguinVideo = () => {
     try {
       const videoUrl = "https://www.pexels.com/video/penguins-at-the-zoo-1528489/";
-      // const video = videoRef.current;
       const video = document.getElementById("userVideo");
       const source = document.getElementById("sourceVideo");
 
       // Set the source element's src attribute to the online URL
-      video.setAttribute("src", videoUrl);
+      source.setAttribute("src", videoUrl);
 
       // Load the video to play it
       video.load();
@@ -110,7 +111,7 @@ export default function Home() {
             Sorry, your browser doesn't support embedded videos.
           </video>
         ) : (
-          <p>Select a video file</p>
+          <MyVideoComponent />
         )}
       </div>
 
@@ -133,40 +134,32 @@ export default function Home() {
           <input id="picture-input" type="file" accept="image/png, image/jpeg" onChange={handleImageChange} /> 
         </div>
 
-
-
-          <div className={styles.button} onClick={capture}>
-            <div className={styles.span}>
+        <div className={styles.button} onClick={capture}>
+          <div className={styles.span}>
               Capture Video
             </div>
-          </div>
+        </div>
 
-          <div className={styles.button} onClick={penguinVideo}>
-            <div className={styles.span}>
-              Use Penguin
-            </div>
+        <div className={styles.button} onClick={penguinVideo}>
+          <div className={styles.span}>
+            Use Penguin
           </div>
+        </div>
 
-          <div className={styles.sliderContainer}>
-            <input className={styles.sliderContainer}
-              type="range"
-              id="frameSlider"
-              min="0"
-              max="100"
-              step="0.5"
-              defaultValue="0"
-              onChange={updateVideoFrame}
-            />
-          </div>
+        <div className={styles.sliderContainer}>
+          <input className={styles.sliderContainer}
+            type="range"
+            id="frameSlider"
+            min="0"
+            max="100"
+            step="0.5"
+            defaultValue="0"
+            onChange={updateVideoFrame}
+          />
+        </div>
       </div>
-
       <div className={styles.videoPlayer}>
         <canvas id="canvas" className={styles.canvas}></canvas>
-        <div className={styles.button}>
-            <div className={styles.span}>
-              Select Masks
-            </div>
-          </div>
       </div>
     </main>
   );

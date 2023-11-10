@@ -9,8 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "file-loader": "^6.2.0",
     "latest-version": "^7.0.0",
-    "next": "^13.5.5",
+    "next": "^14.0.3-canary.1",
     "react": "latest",
     "react-dom": "latest",
     "socket.io-client": "^4.7.2"
