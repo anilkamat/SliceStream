@@ -47,8 +47,12 @@ export default function Home() {
       method: 'POST',
       body: data,
     }).then((response) => {
-      response.json().then((body) => {
-        this.setState({ imageURL: `http://localhost:8080/${body.file}` });
+      console.log("response.json():");
+      // console.log(response.json());
+      response.then((body) => {
+        console.log(response)
+        console.log(body)
+        this.setState({ imageURL: `http://localhost:8080/${response.file}` });
       });
     });
   }

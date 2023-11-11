@@ -69,7 +69,7 @@ mask_generator = SamAutomaticMaskGenerator(sam)
 #
 
 import os
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, send_file
 from flask_cors import CORS
 import requests
 
@@ -136,23 +136,47 @@ def handle_form():
 
     # print(masks)
 
+    # plt.figure(figsize=(20,20))
+    # print("marker 1")
+    # plt.imshow(image)
+    # print("marker 2")
+    # show_anns(masks)
+    # print("marker 3")
+    # plt.axis('off')
+    # print("marker 4")
+    # plt.savefig("test_export2.png")
+    # plt.show() 
+
     print("Displaying image with masks...")
-    plt.figure(figsize=(20,20))
+    figure = plt.figure(figsize=(20,20))
     plt.imshow(image)
     ax, img = apply_anns(masks)
     plt.axis('off')
-    plt.show() 
+    # plt.show() 
     print("Image with masks displayed!")
     # plt.imsave("test_app_export.png", image)
     # ax.imsave("test_app_export2.png", img)
-    plt.add_axes(ax)
+    # figure.add_axes(ax)
+    
+    plt.savefig("test_export3.png")
+    
+    # plt.imsave("test_app_export2.png", figure)
+    print("Image saved!")
+    # plt.show()
 
     # ax.imshow(your_image, aspect='auto')
-    plt.imsave("test_app_export2.png", img)
+    # plt.imsave("test_app_export2.png", img)
 
-    
+    # import matplotlib.pyplot as plt
+    # fig = plt.figure(dpi=100, tight_layout=True, frameon=False, figsize=(resolution/100.,resolution/100.)) # dpi & figsize of my choosing
+    # fig.figimage(ARRAY, cmap=plt.cm.binary)
+    # fig.text(X,Y,TEXT, size='medium', backgroundcolor='white', alpha=0.5)
+    # plt.savefig(FILENAME)
+    # plt.close(fig)
 
-    return output
+    return send_file('./test_export3.png')
+
+    # return output
 
 @app.route("/")
 def index():

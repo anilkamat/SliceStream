@@ -22,7 +22,7 @@ def show_anns(anns):
 
 checkpoint_path = "./models/sam_vit_h_4b8939.pth"
 image_path = "./images/car.jpg"
-image_path = "./images/image3.png"
+# image_path = "./images/image3.png"
 model_type = "vit_h"
 
 image = cv2.imread(image_path)
@@ -41,8 +41,16 @@ print("Time Taken: {:.10f} seconds".format(end - start))
 
 print("Displaying image with masks...")
 plt.figure(figsize=(20,20))
+print("marker 1")
 plt.imshow(image)
+print("marker 2")
 show_anns(masks)
+print("marker 3")
 plt.axis('off')
+print("marker 4")
+plt.savefig("test_export2.png")
 plt.show() 
+print("marker 5")
+# plt.imsave("test_export.png", image)
+print("marker 6")
 print("Image with masks displayed!")
