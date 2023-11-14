@@ -1,7 +1,8 @@
 "use client";
 import { useState, useRef } from "react";
 import styles from './page.module.css';
-import MyVideoComponent from './video.js';
+// import MyVideoComponent from './video.js';
+import ReactPlayer from 'react-player'
 // import penguinVideo from './Video.penguinExample.mp4';
 
 
@@ -61,15 +62,7 @@ export default function Home() {
 
   const penguinVideo = () => {
     try {
-      const videoUrl = "https://www.pexels.com/video/penguins-at-the-zoo-1528489/";
-      const video = document.getElementById("userVideo");
-      const source = document.getElementById("sourceVideo");
-
-      // Set the source element's src attribute to the online URL
-      source.setAttribute("src", videoUrl);
-
-      // Load the video to play it
-      video.load();
+      setImageSrc(URL.createObjectURL('videos/penguinVideo.mp4'));
     } catch (error) {
       console.error(error);
     }
@@ -115,7 +108,11 @@ export default function Home() {
             Sorry, your browser doesn't support embedded videos.
           </video>
         ) : (
-          <MyVideoComponent />
+          <ReactPlayer 
+          playing
+          url='videos/penguinVideo.mp4'
+          width='700'
+          height='400' />
         )}
       </div>
 
@@ -164,6 +161,9 @@ export default function Home() {
       </div>
       <div className={styles.videoPlayer}>
         <canvas id="canvas" className={styles.canvas}></canvas>
+      </div>
+      <div className={styles.buttonContainer}>
+
       </div>
     </main>
   );

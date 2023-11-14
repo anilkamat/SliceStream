@@ -1,5 +1,5 @@
 import React from "react";
-import MyVideo from "./Video.penguinExample.mp4";
+import ReactPlayer from 'react-player'
 
 class MyVideoComponent extends React.Component {
   render() {
