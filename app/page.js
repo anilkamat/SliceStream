@@ -1,18 +1,44 @@
 "use client";
-import { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from 'react';
 import styles from './page.module.css';
 // import MyVideoComponent from './video.js';
 import ReactPlayer from 'react-player'
+import MousePosition from "./mouse";
+import './cursorCSS.css'; 
 // import penguinVideo from './Video.penguinExample.mp4';
 
 
 
 export default function Home() {
-  const [src, setSrc] = useState(""); 
-  const [imageSrc, setImageSrc] = useState("");
+  const [src, setSrc] = useState('');
+  const [imageSrc, setImageSrc] = useState('');
+  const [pointerStyle, setPointerStyle] = useState('auto');
+  const [drawing, setDrawing] = useState(false);
 
   const videoRef = useRef(null);
   const sliderRef = useRef(null);
+  const canvasRef = useRef(null);
+
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+  const [useCustomCursor, setUseCustomCursor] = useState(true);
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (useCustomCursor) {
+        setCursorPosition({ x: e.clientX, y: e.clientY });
+      }
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, [useCustomCursor]); // Include useCustomCursor in the dependency array
+
+  const toggleCustomCursor = () => {
+    setUseCustomCursor((prevUseCustomCursor) => !prevUseCustomCursor);
+  };
 
   const addUserVideo = (event) => {
     try {
@@ -74,6 +100,7 @@ export default function Home() {
       const video = videoRef.current;
       const ctx = canvas.getContext("2d");
 
+
       // Set canvas dimensions to match the video
       canvas.width = video.videoWidth;
       canvas.height = video.videoHeight;
@@ -91,14 +118,38 @@ export default function Home() {
       const frameValue = (slider.value / 100) * video.duration;
       video.currentTime = frameValue;
       capture();
+
+    }
+  };
+
+  const toggleDrawing = () => {
+    setDrawing((prevDrawing) => !prevDrawing);
+  };
+
+  const drawDot = (event) => {
+    if (canvasRef.current && drawing) {
+      const canvas = canvasRef.current;
+      const ctx = canvas.getContext('2d');
+      const rect = canvas.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+
+      ctx.fillStyle = 'black'; // Set the dot color
+      ctx.beginPath();
+      ctx.arc(x, y, 2, 0, 2 * Math.PI);
+      ctx.fill();
     }
   };
 
 
-
   return (
 
-    <main className={styles.main}>
+    <main className={styles.main }>
+      <MousePosition />
+      {useCustomCursor && (
+        <div className="custom-cursor" style={{ left: `${cursorPosition.x}px`, top: `${cursorPosition.y}px` }} />
+      )}
+
       <div className={styles.websiteName}>Slice Stream</div>
 
       <div className={styles.videoPlayer}>
@@ -110,7 +161,7 @@ export default function Home() {
         ) : (
           <ReactPlayer 
           playing
-          url='videos/penguinVideo.mp4'
+          url={['videos/penguinVideo.mp4']}
           width='700'
           height='400' />
         )}
@@ -146,6 +197,11 @@ export default function Home() {
             Use Penguin
           </div>
         </div>
+        <div className={styles.button} onClick={() => { toggleDrawing(); toggleCustomCursor(); }}>
+          <div className={styles.span}>
+            Select Point
+          </div>
+        </div>
 
         <div className={styles.sliderContainer}>
           <input className={styles.sliderContainer}
@@ -160,10 +216,11 @@ export default function Home() {
         </div>
       </div>
       <div className={styles.videoPlayer}>
-        <canvas id="canvas" className={styles.canvas}></canvas>
-      </div>
-      <div className={styles.buttonContainer}>
-
+        <canvas 
+          id="canvas" 
+          className={styles.canvas}
+          ref={canvasRef}
+          onMouseDown={drawDot}></canvas>
       </div>
     </main>
   );
