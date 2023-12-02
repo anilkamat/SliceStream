@@ -82,7 +82,9 @@ export default function Home() {
         console.log(response)
         console.log(body)
         console.log(response.mimetype)
-        this.setState({ imageURL: `http://localhost:8080/${response.file}` });
+        const testSource = 'data:image/png;base64,' + body;
+        // this.setState({ imageURL: `http://localhost:8080/${response.file}` });
+        this.setState({ imageURL: testSource });
       });
     });
   }
