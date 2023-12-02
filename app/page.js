@@ -54,6 +54,7 @@ export default function Home() {
       response.then((body) => {
         console.log(response)
         console.log(body)
+        console.log(response.mimetype)
         this.setState({ imageURL: `http://localhost:8080/${response.file}` });
       });
     });

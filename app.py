@@ -109,6 +109,8 @@ socketio.init_app(app)
 
 @app.route('/upload', methods=['POST'])
 def handle_form():
+    should_process = True
+
     print(request)
     file = request.files['file']
     print("Posted file: {}".format(file))
@@ -118,45 +120,49 @@ def handle_form():
 
     # image = cv2.imread(file)
     
-    # convert string of image data to uint8
-    nparr = np.frombuffer(file.read(), np.uint8)
-    print(nparr)
-    # decode image
-    image = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+    if should_process:
+        # convert string of image data to uint8
+        nparr = np.frombuffer(file.read(), np.uint8)
+        print(nparr)
+        # decode image
+        image = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
 
-    output = {}
-    new_file = "a"
+        output = {}
+        new_file = "a"
 
-    print("Generating masks...")
-    start = time.time()
-    masks = mask_generator.generate(image)
-    end = time.time()
-    print("Masks generated!")
-    print("Time Taken: {:.10f} seconds".format(end - start))
+        print("Generating masks...")
+        start = time.time()
+        masks = mask_generator.generate(image)
+        end = time.time()
+        print("Masks generated!")
+        print("Time Taken: {:.10f} seconds".format(end - start))
 
-    # print(masks)
+        # print(masks)
 
-    # plt.figure(figsize=(20,20))
-    # print("marker 1")
-    # plt.imshow(image)
-    # print("marker 2")
-    # show_anns(masks)
-    # print("marker 3")
-    # plt.axis('off')
-    # print("marker 4")
-    # plt.savefig("test_export2.png")
-    # plt.show() 
+        # plt.figure(figsize=(20,20))
+        # print("marker 1")
+        # plt.imshow(image)
+        # print("marker 2")
+        # show_anns(masks)
+        # print("marker 3")
+        # plt.axis('off')
+        # print("marker 4")
+        # plt.savefig("test_export2.png")
+        # plt.show() 
 
-    print("Displaying image with masks...")
+        print("Displaying image with masks...")
+
     figure = plt.figure(figsize=(20,20))
     plt.imshow(image)
-    ax, img = apply_anns(masks)
-    plt.axis('off')
-    # plt.show() 
-    print("Image with masks displayed!")
-    # plt.imsave("test_app_export.png", image)
-    # ax.imsave("test_app_export2.png", img)
-    # figure.add_axes(ax)
+
+    if should_process:
+        ax, img = apply_anns(masks)
+        plt.axis('off')
+        # plt.show() 
+        print("Image with masks displayed!")
+        # plt.imsave("test_app_export.png", image)
+        # ax.imsave("test_app_export2.png", img)
+        # figure.add_axes(ax)
     
     plt.savefig("test_export3.png")
     
