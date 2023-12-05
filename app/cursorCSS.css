@@ -1,8 +1,5 @@
-body {
+.no-cursor {
     cursor: none;
-}
-body .regCursor {
-    cursor: default;
 }
   
 .custom-cursor {

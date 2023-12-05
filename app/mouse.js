@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import "./cursorCSS.css";
 
 const MousePosition = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });

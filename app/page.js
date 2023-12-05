@@ -22,6 +22,8 @@ export default function Home() {
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [useCustomCursor, setUseCustomCursor] = useState(true);
 
+  let cursor = localStorage.getItem('cursor') === 'true';
+
   useEffect(() => {
     const handleMouseMove = (e) => {
       if (useCustomCursor) {
@@ -30,6 +32,10 @@ export default function Home() {
     };
 
     document.addEventListener('mousemove', handleMouseMove);
+    if (localStorage.getItem('cursor') === null) {
+      // If not present, set the initial value to 'true'
+      localStorage.setItem('cursor', 'true');
+    }
 
     return () => {
       document.removeEventListener('mousemove', handleMouseMove);
@@ -38,6 +44,13 @@ export default function Home() {
 
   const toggleCustomCursor = () => {
     setUseCustomCursor((prevUseCustomCursor) => !prevUseCustomCursor);
+    if (localStorage.getItem('cursor') == true) {
+      localStorage.setItem('cursor', false);
+      cursor = false;
+    } else {
+      localStorage.setItem('cursor', true);
+      cursor = true;
+    }
   };
 
   const addUserVideo = (event) => {
@@ -147,83 +160,85 @@ export default function Home() {
 
   return (
 
-    <main className={styles.main }>
-      <MousePosition />
-      {useCustomCursor && (
-        <div className="custom-cursor" style={{ left: `${cursorPosition.x}px`, top: `${cursorPosition.y}px` }} />
-      )}
-
-      <div className={styles.websiteName}>Slice Stream</div>
-
-      <div className={styles.videoPlayer}>
-        {src ? (
-          <video ref={videoRef} controls width="700" height="400">
-            <source id="sourceVideo" src={src} type="video/mp4" />
-            Sorry, your browser doesn't support embedded videos.
-          </video>
-        ) : (
-          <ReactPlayer 
-          playing
-          url={['videos/penguinVideo.mp4']}
-          width='700'
-          height='400' />
+    <main className={styles.main}>
+      <div className={`${cursor ? 'yes-cursor' : 'no-cursor'}`}>
+        <MousePosition />
+        {useCustomCursor && (
+          <div className="custom-cursor" style={{ left: `${cursorPosition.x}px`, top: `${cursorPosition.y}px` }} />
         )}
-      </div>
 
-      <div className={styles.buttonContainer}>
-        <div className={styles.button}>
-          <label for="video-input">
-            <div className={styles.span}>
-                Upload Video
-            </div>  
-          </label>
-          <input id="video-input" type="file" accept="video/mp4" onChange={addUserVideo} />
+        <div className={styles.websiteName}>Slice Stream</div>
+
+        <div className={styles.videoPlayer}>
+          {src ? (
+            <video ref={videoRef} controls width="700" height="400">
+              <source id="sourceVideo" src={src} type="video/mp4" />
+              Sorry, your browser doesn't support embedded videos.
+            </video>
+          ) : (
+            <ReactPlayer 
+            playing
+            url={['videos/penguinVideo.mp4']}
+            width='700'
+            height='400' />
+          )}
         </div>
 
-        <div className={styles.button}>
-          <label for="picture-input">
-            <div className={styles.span}>
-                Upload Picture
-            </div>  
-          </label>
-          <input id="picture-input" type="file" accept="image/png, image/jpeg" onChange={handleImageChange} /> 
-        </div>
+        <div className={styles.buttonContainer}>
+          <div className={styles.button}>
+            <label for="video-input">
+              <div className={styles.span}>
+                  Upload Video
+              </div>  
+            </label>
+            <input id="video-input" type="file" accept="video/mp4" onChange={addUserVideo} />
+          </div>
 
-        <div className={styles.button} onClick={capture}>
-          <div className={styles.span}>
-              Capture Video
+          <div className={styles.button}>
+            <label for="picture-input">
+              <div className={styles.span}>
+                  Upload Picture
+              </div>  
+            </label>
+            <input id="picture-input" type="file" accept="image/png, image/jpeg" onChange={handleImageChange} /> 
+          </div>
+
+          <div className={styles.button} onClick={capture}>
+            <div className={styles.span}>
+                Capture Video
+              </div>
+          </div>
+
+          <div className={styles.button} onClick={penguinVideo}>
+            <div className={styles.span}>
+              Use Penguin
             </div>
-        </div>
+          </div>
+          <div className={styles.button} onClick={() => { toggleDrawing(); toggleCustomCursor(); }}>
+            <div className={styles.span}>
+              Select Point
+            </div>
+          </div>
 
-        <div className={styles.button} onClick={penguinVideo}>
-          <div className={styles.span}>
-            Use Penguin
+          <div className={styles.sliderContainer}>
+            <input className={styles.sliderContainer}
+              type="range"
+              id="frameSlider"
+              min="0"
+              max="100"
+              step="0.5"
+              defaultValue="0"
+              onChange={updateVideoFrame}
+            />
           </div>
         </div>
-        <div className={styles.button} onClick={() => { toggleDrawing(); toggleCustomCursor(); }}>
-          <div className={styles.span}>
-            Select Point
-          </div>
+        <div className={styles.videoPlayer}>
+          <canvas 
+            id="canvas" 
+            className={styles.canvas}
+            ref={canvasRef}
+            onMouseDown={drawDot}></canvas>
         </div>
-
-        <div className={styles.sliderContainer}>
-          <input className={styles.sliderContainer}
-            type="range"
-            id="frameSlider"
-            min="0"
-            max="100"
-            step="0.5"
-            defaultValue="0"
-            onChange={updateVideoFrame}
-          />
-        </div>
-      </div>
-      <div className={styles.videoPlayer}>
-        <canvas 
-          id="canvas" 
-          className={styles.canvas}
-          ref={canvasRef}
-          onMouseDown={drawDot}></canvas>
       </div>
     </main>
   );
